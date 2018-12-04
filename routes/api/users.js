@@ -76,6 +76,7 @@ router.post("/login", (req, res) => {
           id: user.id,
           name: user.name
         };
+        console.log(payload);
 // Sign token
         jwt.sign(
           payload,
@@ -86,6 +87,7 @@ router.post("/login", (req, res) => {
           (err, token) => {
             res.json({
               success: true,
+              patload: payload,
               token: "Bearer " + token
             });
           }
@@ -98,5 +100,21 @@ router.post("/login", (req, res) => {
     });
   });
 })
+
+
+// @route GET api/users/currentuser
+// @desc Return current user
+// @access Private
+router.get(
+  "/currentuser",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json({
+      id: req.user.id,
+      name: req.user.name,
+      email: req.user.email
+    });
+  }
+);
 
 module.exports = router;

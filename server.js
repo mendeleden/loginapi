@@ -24,7 +24,8 @@ mongoose
 // Passport middleware
 app.use(passport.initialize());
 // Passport config
-//require("./config/passport")(passport);
+const pass =require("./config/passport");
+pass.myfunc();
 // Routes
 app.use("/api/users", users);
 const port = process.env.PORT || 5000;
